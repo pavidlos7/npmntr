@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: ./bot
+      dockerfile: ./Dockerfile.dev
+    environment:
+      TZ: Europe/Moscow
+      SCHEDULER_URL: 'http://scheduler:3000'
+      CALLBACK_URL: 'http://bot:3001'
+    env_file:
+      - .envs/bot-token
+    ports:
+      - '3006:3001'
+    configs:
+      - source: allowed_ids
+        target: /app_config/allowed_ids.json
+    volumes:
+      - ./bot:/appx
+    depends_on:
+      - scheduler
+  scheduler:
+    build:
+      context: ./scheduler
+      dockerfile: ./Dockerfile.dev
+    environment:
+      TZ: Europe/Moscow
+      MONGODB_URL: 'mongodb://mongo:27017/'
+    ports:
+      - '3005:3000'
+    volumes:
+      - ./scheduler:/app
+    depends_on:
+      - mongo
+  mongo-express:
+    image: mongo-express
+    ports:
+      - '8081:8081'
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - '27018:27017'
+    volumes:
+      - ./.volumes/npmntr-data:/data
+
+configs:
+  allowed_ids:
+    file: ./.configs/allowed_ids.json

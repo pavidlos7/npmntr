@@ -1,0 +1,17 @@
+{
+  "name": "bot",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/main.js",
+    "watch": "nodemon src/main.js"
+  },
+  "dependencies": {
+    "fastify": "^4.25.2",
+    "node-telegram-bot-api": "^0.64.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

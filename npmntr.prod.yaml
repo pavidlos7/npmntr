@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: ./bot
+      dockerfile: ./bot/Dockerfile.prod
+    environment:
+      TZ: Europe/Moscow
+      SCHEDULER_URL: 'http://scheduler:3000'
+      CALLBACK_URL: 'http://bot:3001'
+    ports:
+      - '3006:3001'
+    depends_on:
+      - scheduler
+  scheduler:
+    build:
+      context:  ./scheduler
+      dockerfile: ./scheduler/Dockerfile.prod
+    environment:
+      TZ: Europe/Moscow
+      MONGODB_URL: 'mongodb://mongo:27017/'
+    ports:
+      - '3005:3000'
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - '27018:27017'
+    volumes:
+      - ${HOME}/volume-tmp/npmntr-data:/data

@@ -1,0 +1,23 @@
+{
+  "name": "scheduler",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/main",
+    "watch": "nodemon src/main",
+    "migrate:up": "migrate-mongo up",
+    "migrate:down": "migrate-mongo down",
+    "migrate:status": "migrate-mongo status"
+  },
+  "dependencies": {
+    "fastify": "^4.25.2",
+    "lodash": "^4.17.21",
+    "luxon": "^3.4.4",
+    "migrate-mongo": "^11.0.0",
+    "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

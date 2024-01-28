@@ -1,0 +1,6 @@
+.dockerignore
+.gitignore
+.nvmrc
+Dockerfile.dev
+Dockerfile.prod
+node_modules
