@@ -5,3 +5,4 @@ jobs:
     steps:
       - run: docker version
       - run: docker compose version
+      - run: ssh -V
